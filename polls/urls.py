@@ -1,6 +1,11 @@
-from django.conf.urls import url
+from django.conf.urls import url, patterns
 
 from . import views
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
+admin.autodiscover()
 
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
