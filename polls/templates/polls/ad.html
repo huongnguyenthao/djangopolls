@@ -1,1 +1,9 @@
-<img src="{{ image_source }}" alt="Ad" style="width:304px;height:228px;">
+<form action="{% url 'polls:ad_click' %}" method="post">
+{% csrf_token %}
+
+<input type="image" src="{{ image_source }}" style="width:304px;height:228px;" name = "ad_id" value="{{ ad_id }}">
+    </input>
+    <script>
+        window.open('{{ ad_url }}','pop up','width=200, height=200')
+    </script>
+</form>

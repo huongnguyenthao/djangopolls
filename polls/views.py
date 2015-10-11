@@ -13,7 +13,7 @@ from django.shortcuts import render_to_response
 
 # Create your views here.
 
-from .models import Question, Visitor
+from .models import Question, Visitor, Ad, Click
 
 
 class IPRecordingView(generic.View):
@@ -70,3 +70,24 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+
+
+def ad_click(request):
+    adID = request.POST['ad_id']
+    print (adID)
+    clicked_ad = Ad.objects.get(pk=int(request.POST['ad_id']))
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+
+    v = Visitor.objects.get(ip = ip)
+
+    try:
+        c = Click.objects.get(visitor=v, ad=clicked_ad)
+    except Click.DoesNotExist:
+        c = Click(visitor=v, ad=clicked_ad)
+    c.clicks += 1
+    c.save()
+    return HttpResponseRedirect(clicked_ad.get_absolute_url())

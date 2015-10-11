@@ -37,7 +37,12 @@ class Ad(models.Model):
     ad_text = models.CharField(max_length=500)
     clicks = models.IntegerField(default=0)
     impressions = models.IntegerField(default=0)
-    ad_url = models.CharField(max_length=500, default='')
+    website = models.URLField(default='github.com/huongnguyenthao/djangopolls')
+
+    def get_absolute_url(self):
+        if not(self.website.startswith('http://')):
+            return 'http://' + self.website
+        return self.website
 
     def __unicode__(self):
         return self.ad_text

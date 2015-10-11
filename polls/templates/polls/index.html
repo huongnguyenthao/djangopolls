@@ -2,11 +2,12 @@
 {% load ad_tags %}
 
 {% if latest_question_list %}
-    <ul>
+<ul xmlns="http://www.w3.org/1999/html">
     {% for question in latest_question_list %}
         <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-        {% specific_ad %}
+        {% random_ad %}
     {% endfor %}
+        </br>
     </ul>
 {% else %}
     <p>No polls are available.</p>
