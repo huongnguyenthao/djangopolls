@@ -8,7 +8,18 @@
 {% for choice in question.choice_set.all %}
     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
-    {% random_ad %}
 {% endfor %}
 <input type="submit" value="Vote" />
+    {% random_ad %}
+    {% if tagx_question_list %}
+<p>Tags:
+    {% for tagx_question in tagx_question_list %}
+        <a href="{% url 'polls:tag' tagx_question.tag.id %}">{{ tagx_question.tag.tag_name }}</a></li>,
+    {% endfor %}
+    </p>
+{% else %}
+    <p>Not tagged</p>
+{% endif %}
 </form>
+
+

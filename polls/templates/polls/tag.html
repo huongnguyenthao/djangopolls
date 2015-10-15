@@ -1,0 +1,14 @@
+{% load staticfiles %}
+{% load ad_tags %}
+
+{% if latest_tagx_question_list %}
+    <ul>
+    {% for tagx_question in latest_tagx_question_list %}
+        <li><a href="/polls/{{ tagx_question.question.id }}/">{{ tagx_question.question.question_text }}</a></li>
+        {% random_ad %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+

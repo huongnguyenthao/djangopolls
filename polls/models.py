@@ -63,3 +63,26 @@ class AdImpression(models.Model):
     visitor = models.ForeignKey(Visitor)
     ad = models.ForeignKey(Ad)
     impressions = models.IntegerField(default=0)
+
+
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=50)
+
+    def __unicode__(self):
+        return self.tag_name
+
+
+class TagxAd(models.Model):
+    ad = models.ForeignKey(Ad)
+    tag = models.ForeignKey(Tag)
+
+    class Meta:
+        unique_together = ("ad", "tag")
+
+
+class TagxQuestion(models.Model):
+    tag = models.ForeignKey(Tag)
+    question = models.ForeignKey(Question)
+
+    class Meta:
+        unique_together = ("tag", "question")
