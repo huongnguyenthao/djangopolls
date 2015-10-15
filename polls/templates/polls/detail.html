@@ -10,16 +10,16 @@
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
 {% endfor %}
 <input type="submit" value="Vote" />
-    {% random_ad %}
     {% if tagx_question_list %}
-<p>Tags:
-    {% for tagx_question in tagx_question_list %}
-        <a href="{% url 'polls:tag' tagx_question.tag.id %}">{{ tagx_question.tag.tag_name }}</a></li>,
-    {% endfor %}
-    </p>
-{% else %}
-    <p>Not tagged</p>
-{% endif %}
+        <p>Tags:
+            {% for tagx_question in tagx_question_list %}
+                <a href="{% url 'polls:tag' tagx_question.tag.id %}">{{ tagx_question.tag.tag_name }}</a></li>,
+            {% endfor %}
+        </p>
+    {% else %}
+        <p>Not tagged</p>
+    {% endif %}
 </form>
+    {% random_ad %}
 
 

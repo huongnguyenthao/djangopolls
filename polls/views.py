@@ -45,7 +45,6 @@ class DetailView(generic.DetailView):
         context = super(DetailView, self).get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         question = Question.objects.get(pk=self.kwargs.get('pk', None))
-        print(question)
         context['tagx_question_list'] = TagxQuestion.objects.filter(question=question)
         return context
 
@@ -64,6 +63,7 @@ def vote(request, question_id):
         return render(request, 'polls/detail.html', {
             'question': p,
             'error_message': "You didn't select a choice.",
+            'tagx_question_list': TagxQuestion.objects.filter(question=p)
         })
     else:
         selected_choice.votes += 1
