@@ -5,10 +5,11 @@
 <ul xmlns="http://www.w3.org/1999/html">
     {% for question in latest_question_list %}
         <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-        {% random_ad %}
     {% endfor %}
         </br>
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+<p><a href="{% url 'polls:all_tags' %}">See all tags</a></p>
+{% content_targeted_ad %}

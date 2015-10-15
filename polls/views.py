@@ -15,8 +15,6 @@ from django.shortcuts import render_to_response
 
 from .models import Question, Visitor, Ad, Click, TagxQuestion, Tag, TagxAd
 from django.template import RequestContext, loader
-from django.db.models.loading import get_model
-from django.db.models.expressions import RawSQL
 
 
 class IndexView(generic.ListView):
@@ -77,11 +75,7 @@ def vote(request, question_id):
 def tag(request, tag_id):
     try:
         tag = Tag.objects.get(pk=tag_id)
-        print(tag.tag_name)
-        tagx_questions = TagxQuestion.objects.filter(tag=tag)
-        for tagxquestion in tagx_questions:
-            print tagxquestion.question.question_text
-        latest_tagx_question_list = tagx_questions
+        latest_tagx_question_list = TagxQuestion.objects.filter(tag=tag)
         template = loader.get_template('polls/tag.html')
         context = RequestContext(request, {
             'latest_tagx_question_list': latest_tagx_question_list,
@@ -89,6 +83,12 @@ def tag(request, tag_id):
         return HttpResponse(template.render(context))
     except Tag.DoesNotExist:
         return HttpResponse('No tag found')
+
+
+def all_tags(request):
+    return render(request, 'polls/all-tags.html', {
+            'all_tags_list': Tag.objects.order_by('tag_name'),
+        })
 
 
 def ad_click(request):

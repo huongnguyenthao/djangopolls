@@ -26,8 +26,7 @@ class TagxAdInline(admin.TabularInline):
 
 
 class AdAdmin(admin.ModelAdmin):
-    inlines = [AdImageInline]
-    inlines = [TagxAdInline]
+    inlines = [AdImageInline, TagxAdInline]
 
 
 admin.site.register(Ad, AdAdmin)

@@ -5,7 +5,7 @@
     <ul>
     {% for tagx_question in latest_tagx_question_list %}
         <li><a href="/polls/{{ tagx_question.question.id }}/">{{ tagx_question.question.question_text }}</a></li>
-        {% random_ad %}
+        {% content_targeted_ad %}
     {% endfor %}
     </ul>
 {% else %}

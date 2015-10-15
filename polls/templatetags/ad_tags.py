@@ -6,7 +6,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('polls/ad.html', takes_context=True)
-def random_ad(context):
+def content_targeted_ad(context):
     ads = Ad.objects.all()
     try:
         tagsx_question_list = context['tagx_question_list']
